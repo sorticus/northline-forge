@@ -17,81 +17,68 @@ Rule:       If it doesn't punch, it doesn't ship.
 
 ## What this is
 
-A portable quality pack you load **before** you build.
+A portable quality pack you load **before** you build — or when you **once-over** a prebuilt title.
 
-- Standing orders that **forbid** the cheap path (rectangles, silence, hard-snapped cameras, static sprites).
-- A juice / audio / camera / time **runtime kit** you copy into the game.
-- Engine adapters (Phaser, R3F+Rapier, Canvas puzzles).
-- Art doctrine (generated sprite sheets, maps, no photo-as-mesh).
-- Mobile AAA constraints (touch, safe area, perf, a11y).
-- Genre recipes, genre cards, reference-feel list, ship checklist.
+- Standing orders that **forbid** the cheap path
+- Runtime: juice, audio, camera, time, input, haptics, save, i18n, settings
+- Engine adapters (Phaser, R3F+Rapier+bloom, Canvas puzzles)
+- Art / mobile / a11y doctrine
+- Genre recipes
+- **Prebuilt audit** (patch, don’t always rebuild)
+- **App Store / Play prework** (wrapping a URL will get you rejected)
+- **Chrome doctrine** — what’s universal vs F2P-lobby bias
 
-This kit overlays a Grok Build app. **Do not clone this repo over the app scaffold.** Copy the law in, then build.
+Overlay onto a Grok Build app. **Do not clone this repo over the app scaffold.**
 
-Honest scope: [docs/14-what-forge-is-not.md](docs/14-what-forge-is-not.md)
+Gaps we will not pretend to fill: [docs/14-what-forge-is-not.md](docs/14-what-forge-is-not.md)
 
 ---
 
 ## New hire — read this first
 
-1. [docs/00-onboarding.md](docs/00-onboarding.md) — how we work
-2. [docs/01-quality-bar.md](docs/01-quality-bar.md) — what “done” means here
-3. [AGENTS.project.md](AGENTS.project.md) — standing orders (non-negotiable)
-4. [docs/TASKS.md](docs/TASKS.md) — the work board
-5. [INVOKE.md](INVOKE.md) — the sentence you paste into Grok Build
+1. [docs/00-onboarding.md](docs/00-onboarding.md)
+2. [docs/01-quality-bar.md](docs/01-quality-bar.md)
+3. [AGENTS.project.md](AGENTS.project.md)
+4. [docs/17-universal-chrome.md](docs/17-universal-chrome.md) — read this before you put a cog on everything
+5. [INVOKE.md](INVOKE.md)
 
-Then steal code from [`kit/`](kit/) and [`kit/engines/`](kit/engines/).
+Existing game? [docs/15-prebuilt-audit.md](docs/15-prebuilt-audit.md)  
+Stores? [docs/16-app-stores.md](docs/16-app-stores.md)
 
 ---
 
-## Grok Build — invoke (copy this)
+## Grok Build — invoke
 
-Every new game, first message:
+**New title:**
 
 ```text
 Pull github.com/sorticus/northline-forge
 Copy AGENTS.project.md to the project root.
 Copy skills/pop-games into the project skill path.
-Copy kit/ into src/forge/ and wire them (including kit/engines for the chosen engine).
+Copy kit/ into src/forge/ and wire them (including kit/engines).
 Follow FORGE standing orders. Cheap path is a ship blocker.
 Then build: [GENRE] that feels like [REFERENCE GAME]. Setting: [ONE LINE].
 ```
 
-Genre one-liners: [prompts/genre-cards.md](prompts/genre-cards.md)  
-Full protocol: [INVOKE.md](INVOKE.md)
+**Once-over (prebuilt):**
 
----
-
-## Layout
-
-```
-AGENTS.project.md          ← LAW. Load this first.
-INVOKE.md                  ← paste into Grok Build
-skills/pop-games/          ← agent playbook (overrides cheap defaults)
-kit/                       ← runtime: juice, audio, camera, time, input, a11y
-kit/engines/               ← Phaser / R3F / canvas boots (import those deps in the game)
-docs/                      ← doctrine (feel, engines, art, mobile, QA, gaps)
-prompts/                   ← first-message + genre cards
-recipes/                   ← platformer, kart, twin-stick, runner, FPS, TD
+```text
+Pull github.com/sorticus/northline-forge and follow FORGE.
+Do NOT scaffold a new game.
+Audit with docs/15-prebuilt-audit.md. Patch in place.
 ```
 
 ---
 
-## Non-negotiables (read twice)
+## Non-negotiables
 
-1. **Engine is a decision, not a default.** 3D → three.js + Rapier. 2D action → Phaser. Tiny puzzles may stay canvas **and still get art + juice + audio**.
-2. **Art is generated and animated.** No shipping colored primitives as the look.
-3. **Juice on every meaningful action.** Shake, hitstop, particles, squash, camera lerp, SFX.
-4. **Silent is broken.** Tap-to-start unlocks audio. Pitch-randomize repeated SFX.
-5. **Camera never hard-snaps.** Exp lerp + lookahead.
-6. **Mobile is the SKU.** Touch controls, 44px targets, letterbox, reduced-motion toggle.
-7. **Simulation ≠ presentation.** Juice never changes gameplay outcomes.
-
----
-
-## Status
-
-Board rows for constitution, runtime, adapters, recipes, and doctrine are **DONE**.  
-This still is not a game. See [docs/14-what-forge-is-not.md](docs/14-what-forge-is-not.md).
+1. Engine is a decision. 3D → three+Rapier. 2D action → Phaser. Puzzles may stay canvas **with** juice+art+audio.
+2. Art is generated and animated.
+3. Juice on every meaningful action.
+4. Silent is broken.
+5. Camera never hard-snaps.
+6. Mobile is the SKU.
+7. Sim ≠ presentation.
+8. Chrome family is **session (A)** unless the title is actually live-ops.
 
 *Northline does not ship HTML toys.*

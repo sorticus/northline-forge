@@ -1,53 +1,62 @@
 # What FORGE is not
 
-Read this after the victory lap. The board can be all `DONE` and you still do not have a game studio in a folder.
+The board can be all `DONE` and you still do not have a game studio in a folder.
 
 ## This repo is
 
-Law, doctrine, copy-paste runtime, engine adapters, recipes, a ship checklist.
+Law, doctrine, copy-paste runtime, engine adapters, recipes, audits, store **prework**.
 
-It is **not** a title. It does not render a player. It does not contain art, music, levels, or meshes.
+It is **not** a title. It does not contain art, music, levels, or meshes. It does not submit to Apple.
 
-## Hard gaps (will not appear by pulling this repo)
+## Still missing (will not appear by pulling)
 
-### Assets
-- No sprite sheets, tilesets, portraits, or UI icon PNGs
-- No glTF / characters / karts / weapons
-- No music, voice, foley library (only procedural `makeTick`)
-- No fonts we licensed
-- No VFX meshes, flipbooks beyond “spawn a pooled square”
-- Imagine / sprite pipelines live in **Grok Build**, not here
+### Assets (Grok Build / Imagine, not Git)
+- Sprite sheets, tilesets, portraits, icon PNGs
+- glTF / characters / karts / weapons
+- Music, voice, licensed fonts, FMOD projects
+- VFX flipbooks beyond pooled quads
 
-### Production systems
-- No level editor, no Tiled project, no spline track tool
-- No animation graph / blend trees / Spine / Live2D
-- No shader library, no bloom/tonemap preset pack (we *say* bloom; we don’t ship a stack)
-- No cinematic / timeline / camera-cut sequencer
-- No localization pipeline (string tables, fonts per script)
-- No save/cloud, no replay, no ghost races
-- No netcode, rollback, anti-cheat, parties, leaderboards
-- No IAP, ads, live-ops, season pass, analytics, crash reporter, remote config
-- No CI, device lab, automated Golden Path, feel-screenshot diffs
-- No haptics / rumble helper
-- No FMOD / Wwise project
+### Production systems we will not pretend to be
+- Level editor, Tiled project, spline tracks
+- Spine / Live2D / blend trees
+- Cinematic sequencer
+- Cloud save, replay, ghosts
+- Netcode, rollback, anti-cheat, parties, leaderboards
+- IAP storefront, ads, live-ops, battle pass, remote config
+- CI, device lab, screenshot diffs
+- Native Xcode/Android Studio projects
 
 ### Engine reality
-- Phaser / three / Rapier / Howler are **not vendored**. Adapters import them in the **game**.
-- This repo does not `npm install` an engine. Copy files into a Grok Build app that does.
-- Adapters are a boot, not a full character controller, inventory, AI, or navmesh.
+- Phaser / three / Rapier / Howler / postprocessing are **not vendored**
+- Copy adapters into a game that `npm i` them
+- Boots ≠ full character controller / navmesh / inventory / AI
 
-### AAA vs this SKU
-True AAA mobile (Genshin, COD Mobile, Honor of Kings) is a native/Unity/Unreal org with hundreds of people, custom renderers, live-ops, and a 3D character pipeline. FORGE is the **browser vertical-slice bar**: feel, art discipline, engines that fit Grok Build.
+### Stores
+- No Apple/Google account, no signed binary, no privacy policy URL we host
+- See [16-app-stores.md](16-app-stores.md). Wrapping a live URL is an Apple 4.2 reject.
 
-If you wanted Unreal, you are in the wrong building.
+### AAA
+Genshin-class is a different industry. FORGE is the browser vertical-slice bar.
 
 ### Process
-- Grok Build **does not auto-load this repo**. You paste the invoke. Forget it = rectangles.
-- No auth’d private “studio brain” that follows every new app unless you say so.
-- Checklists are not tests. A=left still has to be *played*.
+- Grok Build does **not** auto-load this repo
+- Checklists are not tests
 
-## What pulling FORGE *does* buy
+## What we *did* add so “missing” is smaller
 
-A new hire (or Grok) is not allowed to ship mute rectangles with a hard-snapped camera and call it v1. That is the whole product of this repository.
+| Gap | Where |
+|---|---|
+| Haptics | `kit/haptics.ts` |
+| Save (local, versioned) | `kit/save.ts` |
+| Strings / i18n | `kit/i18n.ts` |
+| Analytics stub (no-op sink) | `kit/analytics.ts` |
+| Settings blob | `kit/settings.ts` |
+| Procedural SFX bank | `kit/sfx-proc.ts` |
+| R3F bloom/vignette | `kit/engines/r3f-post.tsx` |
+| Prebuilt once-over | [15-prebuilt-audit.md](15-prebuilt-audit.md) |
+| Store prework | [16-app-stores.md](16-app-stores.md) |
+| Chrome / HUD conventions + bias | [17-universal-chrome.md](17-universal-chrome.md) |
 
-Everything else — the actual game — is still a title you build **after** the pull.
+## What pulling FORGE buys
+
+A new hire is not allowed to ship mute rectangles with a hard-snapped camera and call it v1. That’s the product of this repository. The title is still a game you build after the pull.

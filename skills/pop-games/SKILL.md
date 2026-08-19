@@ -4,7 +4,9 @@ description: >
   NORTHLINE FORGE production bar. Use whenever building a game after this
   repo was pulled. Overrides factory cheap-path defaults: real engine,
   generated animated art, juice stack, audio, mobile touch, designed HUD.
-  Triggers on "FORGE", "northline", "pop", "full stack", "don't ship rectangles".
+  Also use for once-over / polish / prebuilt audits. Triggers on "FORGE",
+  "northline", "pop", "full stack", "don't ship rectangles", "once over",
+  "prebuilt", "polish this game".
 ---
 
 # POP / FORGE playbook
@@ -15,103 +17,80 @@ If `AGENTS.project.md` from `sorticus/northline-forge` is in the project, this f
 
 ---
 
-## 0. Before any gameplay code
+## 0. Before any gameplay code (new titles)
 
-- [ ] Engine chosen from the table (below) and installed
-- [ ] `kit/*.ts` copied to `src/forge/`
-- [ ] Title / tap-to-start overlay designed (not a raw button)
-- [ ] Art plan: hero sheets OR 3D meshes, map/layer plan, FX sheets
+- [ ] Engine chosen from the table and installed
+- [ ] `kit/` copied to `src/forge/` (engines too)
+- [ ] Title / tap-to-start overlay designed
+- [ ] Art plan: hero sheets OR 3D meshes
 - [ ] Audio unlocked on that first tap
+- [ ] Chrome family picked: **A session** (default) vs **B F2P lobby** — see docs/17-universal-chrome.md
 
-Do not “get the rectangle moving” as v1. Greybox colliders are fine **under** sprites/meshes, not instead of them — unless the user said greybox.
+Do not “get the rectangle moving” as v1.
 
 ---
 
-## 1. Engine table (copy from standing orders)
+## 0b. Prebuilt / once-over (existing titles)
 
-- **3D** → `three` + `@react-three/fiber` + `@react-three/drei` + `@react-three/rapier`
-- **2D action** → Phaser 3
-- **Tiny puzzle** → Canvas 2D allowed, FORGE kit still required
+If a game **already exists**, do **not** scaffold a new one.
 
-Loop: RAF / `useFrame` / Phaser `update`. Scale by **capped dt**. Fixed step for physics. Never `setInterval`. Never `Clock.getDelta()` twice in one frame.
+1. Read `docs/15-prebuilt-audit.md`
+2. Smell-test 60s → PASS / PATCH / REBUILD
+3. Patch in the order in that doc (kit → audio unlock → camera → juice → touch → chrome → art)
+4. Report: verdict, worst 3, next patch
+
+Rebuild only on wrong engine / photo viewmodel / no sim.
+
+---
+
+## 1. Engine table
+
+- **3D** → three + R3F + drei + rapier + `kit/engines/r3f-boot.tsx` (+ `r3f-post.tsx` for bloom)
+- **2D action** → Phaser 3 + `kit/engines/phaser-boot.ts`
+- **Tiny puzzle** → Canvas 2D + `kit/engines/canvas-boot.ts`
+
+Loop: RAF / `useFrame` / Phaser `update`. Capped dt. Never `setInterval`.
 
 ---
 
 ## 2. Wire the kit
 
 ```ts
-// every frame
-const dt = time.step(rawDt);          // kit/time.ts
-juice.update(dt);                     // kit/juice.ts
-camera.follow(dt, player, velocity);  // kit/camera.ts
-audio.resumeIfNeeded();
-```
+import { GameTime, Juice, FollowCamera, audio, ParticlePool, attachKeyboard, poll, installDefaultSfx, hapticImpact } from "@/forge";
 
-On events:
-
-```ts
-juice.impact({ trauma: 0.35, hitstop: 0.05, flash: true });
+const dt = time.step(rawDt);
+const frozen = juice.update(dt).frozen;
+if (!frozen) { /* sim */ }
+juice.impact("heavy");
+hapticImpact("heavy");
 audio.play("hit", { vary: 0.1 });
-particles.emit("sparks", at);
 ```
 
-Offset the **camera**, not the world, for shake. Hitstop sets timeScale/freeze; **keep rendering**.
+`installDefaultSfx()` after unlock. Offset the **camera** for shake. Hitstop skips sim, not render.
 
 ---
 
-## 3. Art (do not skip because it's slower)
+## 3–8. Art / juice / audio / mobile / controls / HUD
 
-When image gen tools exist (they do on SuperGrok):
+Unchanged: generated sheets, juice stack, sync unlock, 44px touch, A=left, designed overlay. Strings via `t()`. Settings via `settingsSave` + pause (Family A) not a Clash lobby unless the title is live-ops.
 
-- Heroes: `generate2dsprite` per action (idle/run/jump/attack). Magenta `#FF00FF`. Body vs FX split.
-- Dense run/walk: optional `video2dsprite` (in-place, locked camera).
-- Maps: `generate2dmap` — foundation-only base, separate props, collision JSON. Side-scroll = parallax plates.
-- 3D: meshes / glTF. Generated images = textures, skies, UI. **Never** a photo viewmodel.
-
-When gen tools do not exist: authored SVG/canvas/WebGL **stylized** art, still animated. Still not four rectangles.
-
-QC: loop flip-test, feet stable, no magenta fringes, body scale consistent across actions.
-
----
-
-## 4. Juice defaults (reflex)
-
-Any hit/pickup/land/death/win → SFX + particles + hitstop + flash + trauma² shake + squash/pop + floating number.
-
-Camera: `1 - exp(-k * dt)` lerp. Lookahead on velocity. Punch on land/hit.
-
-Nothing important moves linearly.
-
----
-
-## 5. Audio defaults
-
-Unlock on first gesture **synchronously**. Master + music + SFX. Pitch variance. Preload. Resume on visibility. No SFX via `<audio>`.
-
----
-
-## 6. Mobile defaults
-
-Touch stick + actions, 44px, safe area, letterbox, `touch-action: none`, dpr cap 2, shake slider, `prefers-reduced-motion`.
-
----
-
-## 7. Controls
-
-Open the controls skill for WASD/steer/flight. A = left under chase cam. Screenshot is not a test.
-
----
-
-## 8. HUD
-
-`design-ui` for overlays. Tokens, not ad-hoc hex. Start / pause / HUD / results are **designed screens**.
-
-Games also get `og:type=x:game` + custom `og.jpg` + x-banner per og skill.
+HUD: `docs/17-universal-chrome.md`. Default **Family A**. Do not invent a profile button on a 3-level platformer.
 
 ---
 
 ## 9. Fail closed
 
-If you are about to ship: untextured primitives as look, no run cycle, no shake, no sound, no touch — **you are not done.** Keep going.
+Primitives as look, no run cycle, no shake, no sound, no touch — not done.
 
-Genre recipes live in `recipes/`. If the genre file is missing, still apply this skill; do not wait.
+---
+
+## 10. Stores
+
+Only if the user asked for App Store / Play. Read `docs/16-app-stores.md`.  
+Do not wrap a remote URL. Sign in with Apple if social login. No Stripe for digital on iOS.
+
+---
+
+## 11. Voice
+
+Product terms. For once-overs: verdict + worst 3 + next patch. No essay.
