@@ -1,58 +1,55 @@
-# FORGE kit — runtime you copy
+# FORGE kit — copy into `src/forge/`
 
-Drop this folder into the game as `src/forge/`.
+This folder is **code**. Docs are briefs. If it isn’t imported, it doesn’t ship.
 
-Core is engine-agnostic. `engines/` imports Phaser / three — only in a game that installed them.
-
-## Wire
+## One-call session (Family A — default)
 
 ```ts
-import {
-  GameTime, Juice, FollowCamera, audio, ParticlePool,
-  attachKeyboard, poll, installDefaultSfx, hapticImpact,
-  settingsSave, applySettings, t,
-} from "@/forge";
+import { Juice, mountSessionChrome, mountTouch, attachKeyboard, registerAudit, runAudit } from "@/forge";
 
-attachKeyboard();
-audio.attachUnlock();
-installDefaultSfx();
 const juice = new Juice();
-applySettings(settingsSave.load(), juice);
+const chrome = mountSessionChrome(appRoot, {
+  juice,
+  title: "TIDECALL",
+  onStart() { /* start sim */ },
+  onRetry() { /* reset run */ },
+});
+attachKeyboard();
+mountTouch(appRoot);
 
-function frame(rawDt: number) {
-  const dt = time.step(rawDt);
-  const frozen = juice.update(dt).frozen;
-  if (!frozen) {
-    const input = poll();
-    cam.follow(dt, player, playerVel);
-    fx.update(dt);
-  }
-}
-
-// on land:
-juice.impact("land");
-hapticImpact("land");
-audio.play("land", { vary: 0.12 });
+registerAudit({
+  engine: "phaser",
+  juiceWired: true,
+  cameraLerps: true,
+  audioUnlockOnTap: true,
+  sfxOnVerbs: true,
+  generatedArt: true,
+  playerAnimated: true,
+  touchControls: true,
+  dtCapped: true,
+});
+// debug: runAudit()
 ```
 
-Boots: `engines/phaser-boot.ts` · `engines/r3f-boot.tsx` · `engines/canvas-boot.ts`  
-3D grade: `engines/r3f-post.tsx`
+Skip sim while `chrome.paused`. Esc / P / the ⚙ (top-right, safe-area) toggles pause. Settings sliders persist and drive audio/shake/haptics.
 
-## Also in this folder
+**F2P lobby only if you have meta:** `mountLobbyChrome` — profile left of cog, Play center-low.
 
-| Module | Job |
+## Modules (all TypeScript)
+
+| File | You call it |
 |---|---|
-| `haptics.ts` | `navigator.vibrate` |
-| `save.ts` | versioned localStorage |
-| `i18n.ts` | `t("pause.title")` |
-| `settings.ts` | audio / shake / locale blob |
-| `analytics.ts` | named events, **no-op** sink until you opt in |
-| `sfx-proc.ts` | procedural bank so day one isn’t mute |
+| `time.ts` `juice.ts` `camera.ts` `particles.ts` | every frame / every hit |
+| `audio.ts` `sfx-proc.ts` | unlock + `installDefaultSfx()` |
+| `input.ts` `touch.ts` | `poll()` / `mountTouch` |
+| `haptics.ts` `save.ts` `i18n.ts` `settings.ts` | persist + rumble + copy |
+| `chrome/session.ts` | title, pause, settings, ⚙ |
+| `chrome/lobby.ts` | Family B |
+| `chrome/results.ts` | win/lose sheet |
+| `audit.ts` | `runAudit()` → PASS/PATCH/REBUILD |
+| `stores/prework.ts` | `printStorePrework()` / `storeReady("apple")` |
+| `engines/*` | Phaser / R3F / canvas boots (need those deps) |
 
-## Rules
+## Still not in this folder
 
-- Hitstop skips sim, not render
-- Shake the camera, not the world
-- Unlock audio on TAP TO START, synchronously
-- Touch writes `setStick`; gameplay reads `poll()`
-- Do not turn analytics on without updating store privacy forms
+Art, music, glTF, Xcode, a signed IPA. `stores/capacitor.config.example.json` is a copy target, not a built app.

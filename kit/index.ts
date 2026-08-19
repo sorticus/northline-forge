@@ -1,9 +1,6 @@
 /**
  * NORTHLINE FORGE — kit entry
  * Copy this folder to src/forge/ and import from here.
- *
- * Engine adapters live in ./engines and import Phaser / three — import
- * those from the game, not from this barrel.
  */
 
 export { GameTime, expDamp, MAX_DT, DEFAULT_STEP } from "./time";
@@ -32,3 +29,9 @@ export { Events, setAnalyticsSink, track } from "./analytics";
 export type { EventName, AnalyticsSink } from "./analytics";
 export { defaultSettings, settingsSave, applySettings } from "./settings";
 export type { Settings } from "./settings";
+export { mountSessionChrome, mountLobbyChrome, showResults, injectChromeStyles } from "./chrome";
+export type { SessionChrome, SessionChromeHooks, LobbyHooks } from "./chrome";
+export { registerAudit, runAudit, auditToMarkdown } from "./audit";
+export type { AuditFlags, AuditReport, AuditRow, EngineKind } from "./audit";
+export { STORE_PREWORK, markStoreItem, storeItems, printStorePrework, storeReady } from "./stores/prework";
+export type { StoreItem } from "./stores/prework";

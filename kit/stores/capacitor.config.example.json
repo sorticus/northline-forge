@@ -1,0 +1,18 @@
+{
+  "$comment": "Copy to capacitor.config.json in the GAME repo after `npm i @capacitor/core @capacitor/cli @capacitor/ios @capacitor/android`. Bundle the build — do not set a production server.url. Apple 4.2.",
+  "appId": "games.northline.TITLE",
+  "appName": "TITLE",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "preferredContentMode": "mobile"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true
+    }
+  }
+}

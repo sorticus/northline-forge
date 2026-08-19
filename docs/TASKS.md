@@ -1,43 +1,16 @@
 # FORGE work board
 
-Status: `OPEN` · `DOING` · `DONE`
+P0–P11 docs/kit: done. **P12 is the “stop being posters” drop.**
 
-P0–P9: v1 kit — **DONE** (see git history).
-
----
-
-## P10 — Systems that were “missing”
+## P12 — Actionable chrome / audit / stores
 
 | ID | Task | Status |
 |---|---|---|
-| P10.1 | `kit/haptics.ts` | DONE |
-| P10.2 | `kit/save.ts` versioned localStorage | DONE |
-| P10.3 | `kit/i18n.ts` string tables | DONE |
-| P10.4 | `kit/analytics.ts` no-op sink + event names | DONE |
-| P10.5 | `kit/settings.ts` | DONE |
-| P10.6 | `kit/sfx-proc.ts` procedural bank | DONE |
-| P10.7 | `kit/engines/r3f-post.tsx` bloom/vignette | DONE |
-| P10.8 | `docs/14` updated — remaining hard gaps | DONE |
+| P12.1 | `kit/chrome/session.ts` — title, ⚙ pause, settings sliders, quit confirm | DONE |
+| P12.2 | `kit/chrome/lobby.ts` — Family B (profile + cog + Play) | DONE |
+| P12.3 | `kit/chrome/results.ts` | DONE |
+| P12.4 | `kit/audit.ts` — `runAudit()` | DONE |
+| P12.5 | `kit/stores/prework.ts` — markable checklist | DONE |
+| P12.6 | Capacitor example + privacy template | DONE |
 
----
-
-## P11 — Prebuilt, stores, chrome
-
-| ID | Task | Status |
-|---|---|---|
-| P11.1 | `docs/15-prebuilt-audit.md` once-over | DONE |
-| P11.2 | `docs/16-app-stores.md` iOS/Play prework | DONE |
-| P11.3 | `docs/17-universal-chrome.md` universal vs F2P bias | DONE |
-| P11.4 | pop-games skill: audit path | DONE |
-
----
-
-## Still not a row (will not be)
-
-Art packs, glTF, music library, FMOD, level editor, Spine, cloud save, netcode, IAP storefront, ads, CI, Xcode project, privacy policy hosting.
-
-Those are titles, vendors, or lawyers. See docs/14.
-
----
-
-*If you are adding another markdown poster instead of patching a game, stop.*
+If you are writing another markdown file instead of importing `mountSessionChrome`, stop.
