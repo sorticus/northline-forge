@@ -1,0 +1,6 @@
+Pull github.com/sorticus/northline-forge
+Copy AGENTS.project.md to the project root.
+Copy skills/pop-games into the project skill path.
+Copy kit/*.ts into src/forge/ and wire them.
+Follow FORGE standing orders. Cheap path is a ship blocker.
+Then build: [GENRE] that feels like [REFERENCE GAME]. Setting: [ONE LINE].
