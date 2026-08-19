@@ -21,12 +21,14 @@ A portable quality pack you load **before** you build.
 
 - Standing orders that **forbid** the cheap path (rectangles, silence, hard-snapped cameras, static sprites).
 - A juice / audio / camera / time **runtime kit** you copy into the game.
-- Engine selection (Phaser vs three.js vs canvas).
+- Engine adapters (Phaser, R3F+Rapier, Canvas puzzles).
 - Art doctrine (generated sprite sheets, maps, no photo-as-mesh).
-- Mobile AAA constraints (touch, safe area, perf budgets).
-- Genre recipes and a ship checklist.
+- Mobile AAA constraints (touch, safe area, perf, a11y).
+- Genre recipes, genre cards, reference-feel list, ship checklist.
 
 This kit overlays a Grok Build app. **Do not clone this repo over the app scaffold.** Copy the law in, then build.
+
+Honest scope: [docs/14-what-forge-is-not.md](docs/14-what-forge-is-not.md)
 
 ---
 
@@ -38,7 +40,7 @@ This kit overlays a Grok Build app. **Do not clone this repo over the app scaffo
 4. [docs/TASKS.md](docs/TASKS.md) — the work board
 5. [INVOKE.md](INVOKE.md) — the sentence you paste into Grok Build
 
-Then steal code from [`kit/`](kit/).
+Then steal code from [`kit/`](kit/) and [`kit/engines/`](kit/engines/).
 
 ---
 
@@ -50,11 +52,12 @@ Every new game, first message:
 Pull github.com/sorticus/northline-forge
 Copy AGENTS.project.md to the project root.
 Copy skills/pop-games into the project skill path.
-Copy kit/*.ts into src/forge/ and wire them.
+Copy kit/ into src/forge/ and wire them (including kit/engines for the chosen engine).
 Follow FORGE standing orders. Cheap path is a ship blocker.
 Then build: [GENRE] that feels like [REFERENCE GAME]. Setting: [ONE LINE].
 ```
 
+Genre one-liners: [prompts/genre-cards.md](prompts/genre-cards.md)  
 Full protocol: [INVOKE.md](INVOKE.md)
 
 ---
@@ -65,10 +68,11 @@ Full protocol: [INVOKE.md](INVOKE.md)
 AGENTS.project.md          ← LAW. Load this first.
 INVOKE.md                  ← paste into Grok Build
 skills/pop-games/          ← agent playbook (overrides cheap defaults)
-kit/                       ← runtime: juice, audio, camera, time, input
-docs/                      ← doctrine (feel, engines, art, mobile, QA)
+kit/                       ← runtime: juice, audio, camera, time, input, a11y
+kit/engines/               ← Phaser / R3F / canvas boots (import those deps in the game)
+docs/                      ← doctrine (feel, engines, art, mobile, QA, gaps)
 prompts/                   ← first-message + genre cards
-recipes/                   ← platformer, kart, twin-stick, …
+recipes/                   ← platformer, kart, twin-stick, runner, FPS, TD
 ```
 
 ---
@@ -87,6 +91,7 @@ recipes/                   ← platformer, kart, twin-stick, …
 
 ## Status
 
-FORGE is being stood up. Constitution and first kits are in. See [docs/TASKS.md](docs/TASKS.md).
+Board rows for constitution, runtime, adapters, recipes, and doctrine are **DONE**.  
+This still is not a game. See [docs/14-what-forge-is-not.md](docs/14-what-forge-is-not.md).
 
 *Northline does not ship HTML toys.*

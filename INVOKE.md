@@ -8,10 +8,12 @@ Grok Build does **not** auto-load this repo. You load it. Every new game. First 
 Pull github.com/sorticus/northline-forge
 Copy AGENTS.project.md to the project root.
 Copy skills/pop-games into the project skill path.
-Copy kit/*.ts into src/forge/ and wire them.
+Copy kit/ into src/forge/ and wire them (including kit/engines for the chosen engine).
 Follow FORGE standing orders. Cheap path is a ship blocker.
 Then build: [GENRE] that feels like [REFERENCE GAME]. Setting: [ONE LINE].
 ```
+
+One-liners: [prompts/genre-cards.md](prompts/genre-cards.md)
 
 ## Examples
 
@@ -33,8 +35,9 @@ Then build: top-down twin-stick that feels like Enter the Gungeon. Setting: subt
 ## Agent: what “pull” means
 
 1. `git clone --depth 1 https://github.com/sorticus/northline-forge.git` into a **side folder** (not over the app).
-2. Or GitHub: read `AGENTS.project.md`, `skills/pop-games/SKILL.md`, and `kit/*`.
-3. Copy those into the running app project.
-4. **Then** scaffold / build. Never build first and “add juice later” as a promise.
+2. Or GitHub: read `AGENTS.project.md`, `skills/pop-games/SKILL.md`, and `kit/**`.
+3. Copy those into the running app project (`src/forge/`).
+4. Install the engine from `docs/02-engine-selection.md`. Use `kit/engines/*`.
+5. **Then** scaffold / build. Never build first and “add juice later” as a promise.
 
 If clone fails, use the GitHub connection to read the same files. Do not skip FORGE because git was inconvenient.

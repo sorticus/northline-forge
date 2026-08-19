@@ -12,9 +12,10 @@ If the user asked you to pull `sorticus/northline-forge`, you **must** obey this
 
 1. This file (`AGENTS.project.md`) — copy to the app project root.
 2. `skills/pop-games/SKILL.md` — copy into the project's skill directory and follow it.
-3. `kit/*.ts` — copy into `src/forge/` and **wire them**. Do not rewrite juice from memory.
-4. Read `docs/01-quality-bar.md` and the relevant recipe under `recipes/`.
-5. Then build the game.
+3. `kit/` — copy into `src/forge/` and **wire them**. Do not rewrite juice from memory.
+4. Pick an engine. Copy the matching `kit/engines/*` boot + juice adapter. Install that engine.
+5. Read `docs/01-quality-bar.md` and the relevant file under `recipes/`.
+6. Then build the game.
 
 Do **not** clone this repository over the app scaffold. Overlay. Then build.
 
@@ -43,11 +44,11 @@ Prototypes: only if the user **explicitly** says “greybox” or “blockout.�
 
 ## 2. Engine selection (mandatory, first decision)
 
-| If the game is… | Engine | Install |
+| If the game is… | Engine | Adapter |
 |---|---|---|
-| 3D (FPS, kart, flight, voxel, third-person) | **three.js + @react-three/fiber + drei + rapier** | `npm i three @react-three/fiber @react-three/drei @react-three/rapier` + types |
-| 2D action (platformer, twin-stick, runner, TD, beat-em-up) | **Phaser 3** | `npm i phaser` |
-| Tiny puzzle (solitaire, match-3, Tetris, 2048, word) | Canvas 2D **allowed** | Still: generated art, juice, audio, designed HUD |
+| 3D (FPS, kart, flight, voxel, third-person) | **three.js + @react-three/fiber + drei + rapier** | `kit/engines/r3f-boot.tsx` + `r3f-juice.tsx` |
+| 2D action (platformer, twin-stick, runner, TD, beat-em-up) | **Phaser 3** | `kit/engines/phaser-boot.ts` + `phaser-juice.ts` |
+| Tiny puzzle (solitaire, match-3, Tetris, 2048, word) | Canvas 2D **allowed** | `kit/engines/canvas-boot.ts` — still art + juice + audio |
 
 Do not put Three.js on Tetris. Do not put Canvas 2D on a kart racer.
 
@@ -87,7 +88,7 @@ Camera: `kit/camera.ts`. `pos += (target - pos) * (1 - exp(-k * dt))`. Never `po
 
 - Unlock `AudioContext` **synchronously** on the first user gesture. Tap-to-start exists for this.
 - Master / music / SFX buses. Mute + sliders. Map slider through `x²`.
-- No `<audio>` elements for SFX. Howler or Web Audio buffers.
+- No `<audio>` elements for SFX. Howler (`kit/audio-howler.ts`) or Web Audio buffers.
 - Resume on `visibilitychange`.
 - Every action has sound. Repeated sounds are not robotic.
 
@@ -100,7 +101,7 @@ This is a **mobile game company**. Desktop is a preview. The SKU is a phone.
 - Touch controls on screen. Keyboard is extra, not the only path.
 - Targets ≥ 44px. Safe area. Letterbox to a design resolution.
 - `touch-action: none` on the canvas.
-- Screen-shake / flash sliders. Respect `prefers-reduced-motion`.
+- Screen-shake / flash sliders. Respect `prefers-reduced-motion` (`kit/a11y.ts`).
 - Cap pixel ratio at 2. Pool bullets/particles. InstancedMesh for repeats in 3D.
 
 ---
@@ -115,6 +116,7 @@ WASD / steering / flight: A = **left**, D = **right** from a chase camera while 
 
 - [ ] Engine choice matches §2 and is in `package.json`
 - [ ] FORGE kit wired (`src/forge/`) — not reimplemented ad-hoc
+- [ ] Matching `kit/engines` boot used
 - [ ] No cheap-path blockers from §1
 - [ ] Start screen (tap to play) unlocks audio
 - [ ] Juice fires on every meaningful action
