@@ -1,0 +1,48 @@
+{
+  "workingTitle": "Tidecall",
+  "genre": "2D pixel platformer",
+  "primaryReference": "Celeste",
+  "topic": "storm-lit coastal cliffs, courier with a dash",
+  "searched": [
+    "Celeste dash freeze frame coyote time jump buffer",
+    "Celeste camera lookahead land squash hair trail",
+    "precision platformer mobile virtual stick vs swipe",
+    "games with wind as movement mechanic"
+  ],
+  "comparables": [
+    {
+      "name": "Celeste",
+      "platform": "PC/console/mobile",
+      "why": "dash as the verb, death is fast, land is the juice",
+      "steal": ["coyote ~0.08s", "jump buffer ~0.1s", "dash freeze 2–3 frames", "land squash + punch", "retry instant"],
+      "never": ["Madeline", "Badeline", "Celeste mountain layouts", "Lena Raine tracks", "berry UI"],
+      "camera": "exp lerp, lookahead on dash, room clamps",
+      "controls": "jump + dash; keyboard + on-screen jump/dash (no analog required)",
+      "juice": "dash afterimage, hair/trail, death burst, strawberry pop",
+      "chrome": "A",
+      "loop": "screen → die → instant retry; collect optional"
+    },
+    {
+      "name": "Super Meat Boy",
+      "platform": "PC/console",
+      "why": "tight jump, gore burst, no lecture on death",
+      "steal": ["level in one breath", "death particles", "spawn lock 2 frames"],
+      "never": ["Meat Boy", "Bandage Girl", "chapter map art"],
+      "camera": "tight follow, little lookahead",
+      "controls": "run + jump",
+      "juice": "burst on death, smear on run",
+      "chrome": "A",
+      "loop": "micro-level, instant restart"
+    }
+  ],
+  "v1Loop": "climb 4 screens, dash + jump, crystals, death → retry same screen",
+  "v1NotInScope": ["assist mode full suite", "B-side remixes", "story cutscenes", "account/profile"],
+  "engine": "phaser",
+  "chromeFamily": "A",
+  "juiceMap": {
+    "jump": "stretch + whoosh",
+    "land": "squash + dust + thud + camera punch",
+    "dash": "hitstop 2–3 + afterimage + trauma 0.2",
+    "death": "burst + trauma 0.8 + instant retry"
+  }
+}

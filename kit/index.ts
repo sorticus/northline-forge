@@ -35,3 +35,5 @@ export { registerAudit, runAudit, auditToMarkdown } from "./audit";
 export type { AuditFlags, AuditReport, AuditRow, EngineKind } from "./audit";
 export { STORE_PREWORK, markStoreItem, storeItems, printStorePrework, storeReady } from "./stores/prework";
 export type { StoreItem } from "./stores/prework";
+export { emptyBrief, briefGaps, assertBriefReady } from "./research";
+export type { ResearchBrief, Comparable, ChromeFamily, EnginePick } from "./research";

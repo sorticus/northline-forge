@@ -4,93 +4,78 @@ description: >
   NORTHLINE FORGE production bar. Use whenever building a game after this
   repo was pulled. Overrides factory cheap-path defaults: real engine,
   generated animated art, juice stack, audio, mobile touch, designed HUD.
-  Also use for once-over / polish / prebuilt audits. Triggers on "FORGE",
-  "northline", "pop", "full stack", "don't ship rectangles", "once over",
-  "prebuilt", "polish this game".
+  Research comparable games BEFORE gameplay code. Also once-over / polish.
+  Triggers on "FORGE", "northline", "pop", "full stack", "don't ship rectangles",
+  "once over", "prebuilt", "polish this game".
 ---
 
 # POP / FORGE playbook
 
 Factory game skills tell you how to make a **correct** loop. This skill tells you the loop is **not shippable** until it punches.
 
-If `AGENTS.project.md` from `sorticus/northline-forge` is in the project, this file and that file **win** over “Canvas 2D is enough.”
+If `AGENTS.project.md` from `sorticus/northline-forge` is in the project, this file **wins** over “Canvas 2D is enough.”
 
 ---
 
-## 0. Before any gameplay code (new titles)
+## 0. Research (new titles — blocking)
 
-- [ ] Engine chosen from the table and installed
-- [ ] `kit/` copied to `src/forge/` (engines too)
-- [ ] Title / tap-to-start overlay designed
-- [ ] Art plan: hero sheets OR 3D meshes
-- [ ] Audio unlocked on that first tap
-- [ ] Chrome family picked: **A session** (default) vs **B F2P lobby** — see docs/17-universal-chrome.md
+Before engine install, before rectangles:
 
-Do not “get the rectangle moving” as v1.
+1. Read `docs/18-research.md` and `docs/13-reference-feel.md`.
+2. **Web search** the primary reference + genre + topic. ≥2 shipped comparables.
+3. Fill `ResearchBrief` (`kit/research.ts`). `briefGaps(brief)` must be `[]`.
+4. Write `src/forge/research.brief.json`.
+5. Six lines to the user: comparables, steal, never-copy, engine, v1 loop, out of scope.
+6. **Then** copy kit, boot engine, `mountSessionChrome`.
 
----
+Do not invent Celeste frame data from vibes. Search. Steal feel, never IP.
 
-## 0b. Prebuilt / once-over (existing titles)
-
-If a game **already exists**, do **not** scaffold a new one.
-
-1. Read `docs/15-prebuilt-audit.md`
-2. Smell-test 60s → PASS / PATCH / REBUILD
-3. Patch in the order in that doc (kit → audio unlock → camera → juice → touch → chrome → art)
-4. Report: verdict, worst 3, next patch
-
-Rebuild only on wrong engine / photo viewmodel / no sim.
+Topical setting (storms, harbour, archive) modifies verbs — research how other games treat that **as a mechanic**, not a palette swap.
 
 ---
 
-## 1. Engine table
+## 0b. Before gameplay code (after brief)
 
-- **3D** → three + R3F + drei + rapier + `kit/engines/r3f-boot.tsx` (+ `r3f-post.tsx` for bloom)
-- **2D action** → Phaser 3 + `kit/engines/phaser-boot.ts`
-- **Tiny puzzle** → Canvas 2D + `kit/engines/canvas-boot.ts`
-
-Loop: RAF / `useFrame` / Phaser `update`. Capped dt. Never `setInterval`.
-
----
-
-## 2. Wire the kit
-
-```ts
-import { GameTime, Juice, FollowCamera, audio, ParticlePool, attachKeyboard, poll, installDefaultSfx, hapticImpact } from "@/forge";
-
-const dt = time.step(rawDt);
-const frozen = juice.update(dt).frozen;
-if (!frozen) { /* sim */ }
-juice.impact("heavy");
-hapticImpact("heavy");
-audio.play("hit", { vary: 0.1 });
-```
-
-`installDefaultSfx()` after unlock. Offset the **camera** for shake. Hitstop skips sim, not render.
+- [ ] Engine from the table, installed
+- [ ] `kit/` in `src/forge/`
+- [ ] `mountSessionChrome` (Family A) unless meta → Family B
+- [ ] Art plan: sheets or meshes
+- [ ] Audio unlock on TAP TO START
 
 ---
 
-## 3–8. Art / juice / audio / mobile / controls / HUD
+## 0c. Prebuilt
 
-Unchanged: generated sheets, juice stack, sync unlock, 44px touch, A=left, designed overlay. Strings via `t()`. Settings via `settingsSave` + pause (Family A) not a Clash lobby unless the title is live-ops.
-
-HUD: `docs/17-universal-chrome.md`. Default **Family A**. Do not invent a profile button on a 3-level platformer.
+Do not scaffold. `docs/15-prebuilt-audit.md`. Name 1–2 comparables for the feel patch. `runAudit()`. Verdict + worst 3.
 
 ---
 
-## 9. Fail closed
+## 1. Engine
 
-Primitives as look, no run cycle, no shake, no sound, no touch — not done.
-
----
-
-## 10. Stores
-
-Only if the user asked for App Store / Play. Read `docs/16-app-stores.md`.  
-Do not wrap a remote URL. Sign in with Apple if social login. No Stripe for digital on iOS.
+- **3D** → R3F + rapier + `r3f-boot` + `r3f-post`
+- **2D action** → Phaser + `phaser-boot`
+- **Tiny puzzle** → canvas-boot + still FORGE
 
 ---
 
-## 11. Voice
+## 2. Wire
 
-Product terms. For once-overs: verdict + worst 3 + next patch. No essay.
+`time.step` → `juice.update` → sim if not frozen → `juice.impact` + `hapticImpact` + `audio.play`. Camera lerp. `installDefaultSfx` after unlock.
+
+---
+
+## 3. Fail closed
+
+No brief. No searches. Primitives-as-look. No run cycle. No shake. No sound. No touch. Traced HUD from a screenshot.
+
+---
+
+## 4. Stores
+
+Only if asked. `docs/16-app-stores.md`. No remote WebView wrap.
+
+---
+
+## 5. Voice
+
+Six-line research, then build. Once-over: verdict, worst 3, next patch.

@@ -1,16 +1,14 @@
 # FORGE work board
 
-P0–P11 docs/kit: done. **P12 is the “stop being posters” drop.**
+P0–P12: kit, chrome, audit, stores — done.
 
-## P12 — Actionable chrome / audit / stores
+## P13 — Research gate
 
 | ID | Task | Status |
 |---|---|---|
-| P12.1 | `kit/chrome/session.ts` — title, ⚙ pause, settings sliders, quit confirm | DONE |
-| P12.2 | `kit/chrome/lobby.ts` — Family B (profile + cog + Play) | DONE |
-| P12.3 | `kit/chrome/results.ts` | DONE |
-| P12.4 | `kit/audit.ts` — `runAudit()` | DONE |
-| P12.5 | `kit/stores/prework.ts` — markable checklist | DONE |
-| P12.6 | Capacitor example + privacy template | DONE |
+| P13.1 | `kit/research.ts` — brief + `briefGaps()` | DONE |
+| P13.2 | `docs/18-research.md` | DONE |
+| P13.3 | Example brief JSON | DONE |
+| P13.4 | Standing orders + invoke require search **before** gameplay | DONE |
 
-If you are writing another markdown file instead of importing `mountSessionChrome`, stop.
+Build is illegal until `briefGaps()` is empty.
