@@ -16,7 +16,8 @@ We copy **timing, camera, juice, audio layering**. We do not copy characters, lo
 | Crossy Road | Hop squash, voxel read, death slapstick, retry instant |
 | Alto’s Odyssey | Land as the game, scarf, wind, breathing camera |
 | Smash Hit | Glass burst, camera lunge, music sync |
-| Monument Valley | Perspective snap, quiet juice, tap-to-rotate satisfaction |
+| Monument Valley | Perspective snap, **quiet** juice, tap-to-rotate satisfaction. Never Ida, crow, those levels, that UI, that score. Recipe: `recipes/perspective-puzzle.md`. Loud FORGE trauma is wrong here. |
+| Superliminal | Forced perspective as a verb (scale by camera). Don’t copy their levels. |
 | Vampire Survivors | Pickup vacuum, level-up punch, readable chaos |
 | Stardew | Tool/pickup juice, day sting — not the farm IP |
 | Canabalt | Leap, rumble, buildings as rhythm |
@@ -25,4 +26,4 @@ We copy **timing, camera, juice, audio layering**. We do not copy characters, lo
 
 If the reference is 3D and you ship Canvas 2D, you ignored the engine table.
 
-Illegal: shipping Mario, a Nestlé HUD, a photographed real firearm as a viewmodel, or a trace of a copyrighted character sheet.
+Illegal: shipping Mario, a Nestlé HUD, a photographed real firearm as a viewmodel, a trace of a copyrighted character sheet, or a Monument Valley / Ida remake.

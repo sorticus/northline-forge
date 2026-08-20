@@ -76,7 +76,7 @@ export function briefGaps(b: ResearchBrief): string[] {
   });
   if (!b.v1Loop.trim()) g.push("v1Loop");
   if (Object.keys(b.juiceMap).length < 3) g.push("juiceMap (need ≥3 verbs)");
-  if (b.engine === "canvas" && /kart|fps|3d|platformer|twin-stick|runner/i.test(b.genre)) {
+  if (b.engine === "canvas" && /kart|fps|3d|platformer|twin-stick|runner|monument|perspective|valley/i.test(`${b.genre} ${b.primaryReference}`)) {
     g.push("engine canvas is illegal for this genre");
   }
   return g;

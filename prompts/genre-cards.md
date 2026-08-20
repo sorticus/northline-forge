@@ -20,5 +20,8 @@ Then build: arena FPS that feels like a tight boom-shooter. Setting: [place]. Me
 ## Tower defense
 Then build: tower defense that feels like Kingdom Rush. Setting: [place], two towers, separate build pads, coin-fly juice.
 
+## Perspective puzzle (Monument Valley *feel*, never a remake)
+Then build: 3D impossible-architecture puzzle that feels like Monument Valley. Quiet juice, tap-to-rotate is the verb, original setting and character. Not a remake, not Ida, not those levels. Follow recipes/perspective-puzzle.md. Engine R3F. 3–5 handmade dioramas.
+
 ## Puzzle (canvas allowed)
 Then build: [match-3 / solitaire / tetromino] that still uses FORGE juice + audio + generated art. Setting: [place]. Not a mute grid.
